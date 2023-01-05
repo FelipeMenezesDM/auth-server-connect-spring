@@ -1,0 +1,6 @@
+authentication:
+  auth-server:
+    token-uri: https://api.authserver.dev.felipemenezes.me/api/v1/token
+    client-id: 982413b7-ee37-4e8d-a3ac-04a6b2188678
+    client-secret: a717eee4-7d74-4894-9da9-f4732e0c8859
+    grant-type: client_credentials

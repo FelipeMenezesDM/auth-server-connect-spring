@@ -8,7 +8,9 @@ import static java.lang.annotation.ElementType.TYPE;
 @Retention(RUNTIME)
 @Target(TYPE)
 public @interface TokenConnection {
-    String url() default "";
+    String tokenUri() default "";
+
+    String redirectUri() default "";
 
     String clientId() default "";
 
@@ -16,5 +18,7 @@ public @interface TokenConnection {
 
     String grantType() default "";
 
-    String timeout() default "5000";
+    String[] scopes() default {};
+
+    String clientName() default "";
 }

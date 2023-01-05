@@ -1,7 +1,7 @@
 package br.com.infrastructure.annotation.tokenconnection;
 
-import br.com.integration.authserver.dto.AuthServerResponse;
-import br.com.integration.authserver.service.AuthServerService;
+import br.com.integration.authserver.AuthServerConnection;
+import br.com.integration.authserver.config.AuthServerAuthorizerConfig;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,23 +13,16 @@ import java.lang.reflect.Field;
 @Component
 public class TokenConnectionAspect {
     @Autowired
-    AuthServerService authServerService;
+    AuthServerAuthorizerConfig authServerAuthorizerConfig;
 
     @Around("@within(TokenConnection)")
     public Object trace(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object target = proceedingJoinPoint.getTarget();
-        Field[] fields = target.getClass().getDeclaredFields();
-        TokenConnection tokenConnection = target.getClass().getAnnotation(TokenConnection.class);
 
-        for(Field field : fields) {
-            if(field.getType().isAssignableFrom(AuthServerResponse.class)) {
+        for(Field field : target.getClass().getDeclaredFields()) {
+            if(field.getType().isAssignableFrom(AuthServerConnection.class)) {
                 field.setAccessible(true);
-                field.set(target, authServerService.getToken(
-                        tokenConnection.url(),
-                        tokenConnection.clientId(),
-                        tokenConnection.clientSecret(),
-                        tokenConnection.grantType()
-                ));
+                field.set(target, authServerAuthorizerConfig.authorize());
             }
         }
 
