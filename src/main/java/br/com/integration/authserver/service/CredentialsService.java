@@ -15,34 +15,36 @@ import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 @Service
 public class CredentialsService {
     @Autowired
     OAuthClientProps oAuthClientProps;
 
+    private final Map<ProvidersEnum, Supplier<?>> suppliers = new HashMap<>();
+
     private static final String DEFAULT_ENDPOINT = "//secretsmanager.%s.amazonaws.com";
+
+    public CredentialsService() {
+        suppliers.put(ProvidersEnum.GCP, this::getCredentialsFromGCPSecretManager);
+        suppliers.put(ProvidersEnum.AWS, this::getCredentialsFromAWSSecretsManager);
+        suppliers.put(ProvidersEnum.ENVIRONMENT, this::getCredentialsFromEnvironmentVariables);
+        suppliers.put(ProvidersEnum.APPLICATION, this::getCredentialsFromApplicationProperties);
+    }
 
     public JSONObject getCredentials() {
         ProvidersEnum provider = ProvidersEnum.getByValue(oAuthClientProps.getProvider());
-
-        switch(provider) {
-            case GCP :
-                return getCredentialsFromGCPSecretManager();
-            case AWS :
-                return getCredentialsFromAWSSecretsManager();
-            case ENVIRONMENT :
-                return getCredentialsFromEnvironmentVariables();
-            case APPLICATION :
-                return getCredentialsFromApplicationProperties();
-            default:
-                throw new IllegalArgumentException(String.format("'%s' is an invalid provider.", provider.name()));
-        }
+        return (JSONObject) suppliers.get(provider).get();
     }
 
     private JSONObject getCredentialsFromAWSSecretsManager() {
-        AWSSecretsManager client = AWSSecretsManagerClientBuilder.standard().withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(getAWSEndpoint(), getAWSRegion())).build();
+        String region = oAuthClientProps.getRegion();
+        String endPoint = Optional.ofNullable(oAuthClientProps.getEndpoint()).orElse(String.format(DEFAULT_ENDPOINT, region));
+        AWSSecretsManager client = AWSSecretsManagerClientBuilder.standard().withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endPoint, region)).build();
         GetSecretValueRequest getSecretValueRequest = new GetSecretValueRequest().withSecretId(oAuthClientProps.getSecretName());
 
         try {
@@ -81,13 +83,5 @@ public class CredentialsService {
         credentials.appendField(oAuthClientProps.getClientSecretKey(), clientSecret);
 
         return credentials;
-    }
-
-    private String getAWSEndpoint() {
-        return Optional.ofNullable(oAuthClientProps.getEndpoint()).orElse(String.format(DEFAULT_ENDPOINT, getAWSRegion()));
-    }
-
-    private String getAWSRegion() {
-        return oAuthClientProps.getRegion();
     }
 }

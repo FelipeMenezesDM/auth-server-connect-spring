@@ -1,6 +1,6 @@
 package br.com.infrastructure.annotation.tokenconnection;
 
-import br.com.integration.authserver.AuthServerConnection;
+import br.com.integration.authserver.AuthServerToken;
 import br.com.integration.authserver.config.AuthServerAuthorizerConfig;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -11,16 +11,16 @@ import java.lang.reflect.Field;
 
 @Aspect
 @Component
-public class TokenConnectionAspect {
+public class AuthServerConnectionAspect {
     @Autowired
     AuthServerAuthorizerConfig authServerAuthorizerConfig;
 
-    @Around("@within(TokenConnection)")
+    @Around("@within(AuthServerConnection)")
     public Object trace(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object target = proceedingJoinPoint.getTarget();
 
         for(Field field : target.getClass().getDeclaredFields()) {
-            if(field.getType().isAssignableFrom(AuthServerConnection.class)) {
+            if(field.getType().isAssignableFrom(AuthServerToken.class)) {
                 field.setAccessible(true);
                 field.set(target, authServerAuthorizerConfig.authorize());
             }

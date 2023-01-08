@@ -5,49 +5,46 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OAuthClientProps {
-    @Value("${auth.name:auth-server}")
+    @Value("${auth-server.name:auth-server}")
     String clientName;
 
-    @Value("${auth.token-uri}")
+    @Value("${auth-server.token-uri}")
     String tokenUri;
 
-    @Value("${auth.redirect-uri:}")
+    @Value("${auth-server.redirect-uri:}")
     String redirectUri;
 
-    @Value("${auth.grant-type:client_credentials}")
+    @Value("${auth-server.grant-type:client_credentials}")
     String grantType;
 
-    @Value("#{'${auth.scopes:}'.split(',')}")
+    @Value("#{'${auth-server.scopes:}'.split(',')}")
     String[] scopes;
 
-    @Value("${auth.source.provider:environment}")
+    @Value("${auth-server.source.provider:environment}")
     String provider;
 
-    @Value("${auth.source.props.project-id:}")
+    @Value("${auth-server.source.props.project-id:}")
     String projectId;
 
-    @Value("${auth.source.props.account-id:}")
-    String accountId;
-
-    @Value("${auth.source.props.region:us-east-1}")
+    @Value("${auth-server.source.props.region:us-east-1}")
     String region;
 
-    @Value("${auth.source.props.client-id-key:client_id}")
+    @Value("${auth-server.source.props.client-id-key:client_id}")
     String clientIdKey;
 
-    @Value("${auth.source.props.client-secret-key:client_secret}")
+    @Value("${auth-server.source.props.client-secret-key:client_secret}")
     String clientSecretKey;
 
-    @Value("${auth.source.props.endpoint:}")
+    @Value("${auth-server.source.props.endpoint:}")
     String endpoint;
 
-    @Value("${auth.source.props.secret-name:}")
+    @Value("${auth-server.source.props.secret-name:}")
     String secretName;
 
-    @Value("${auth.source.props.client-id:}")
+    @Value("${auth-server.source.props.client-id:}")
     String clientId;
 
-    @Value("${auth.source.props.client-secret:}")
+    @Value("${auth-server.source.props.client-secret:}")
     String clientSecret;
 
     public String getClientName() {
@@ -76,10 +73,6 @@ public class OAuthClientProps {
 
     public String getProjectId() {
         return projectId;
-    }
-
-    public String getAccountId() {
-        return accountId;
     }
 
     public String getRegion() {

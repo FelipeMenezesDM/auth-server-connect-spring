@@ -18,6 +18,6 @@ public enum ProvidersEnum {
                 .stream(values())
                 .filter(provider -> provider.name().equalsIgnoreCase(providerName))
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException(String.format("\"%s\" is an invalid provider.", providerName)));
     }
 }
