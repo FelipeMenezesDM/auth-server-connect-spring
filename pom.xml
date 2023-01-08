@@ -20,6 +20,7 @@
         <jackson.version>2.14.1</jackson.version>
         <lombok.version>1.18.24</lombok.version>
         <aws.secretsmanager.version>1.12.380</aws.secretsmanager.version>
+        <gcp.secretmanager.version>2.7.0</gcp.secretmanager.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -66,6 +67,11 @@
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-secretsmanager</artifactId>
             <version>${aws.secretsmanager.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-secretmanager</artifactId>
+            <version>${gcp.secretmanager.version}</version>
         </dependency>
     </dependencies>
 </project>

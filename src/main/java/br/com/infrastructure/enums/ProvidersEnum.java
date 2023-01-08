@@ -11,7 +11,7 @@ public enum ProvidersEnum {
     /**
      * Search provider by name
      * @param providerName Value to search
-     * @return
+     * @return return provider
      */
     public static ProvidersEnum getByValue(String providerName) {
         return Arrays

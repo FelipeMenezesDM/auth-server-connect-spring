@@ -2,17 +2,17 @@ auth:
 #  name:
   token-uri: https://api.authserver.dev.felipemenezes.me/api/v1/token
 #  redirect-uri:
-  grant-type: client_credentials
+#  grant-type: client_credentials
 #  scopes:
   source:
-    provider: environment # aws|gcp|application|environment
+    provider: gcp # aws|gcp|application|environment
     props:
-#      project-id:
+      project-id: 829240121195
 #      account-id:
 #      region:
-#      client-id-key: client_id
-#      client-secret-key: client_secret
-      endpoint: http://192.168.100.98:4566
-      secret-name: teste
-      client-id: 982413b7-ee37-4e8d-a3ac-04a6b2188678
-      client-secret: a717eee4-7d74-4894-9da9-f4732e0c8859
+      client-id-key: client_id
+      client-secret-key: client_secret
+#      endpoint: http://192.168.100.98:4566
+      secret-name: auth-server-main-client-secrets
+#      client-id: 982413b7-ee37-4e8d-a3ac-04a6b2188678
+#      client-secret: a717eee4-7d74-4894-9da9-f4732e0c8859
