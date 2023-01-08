@@ -1,31 +1,58 @@
 package br.com.integration.authserver.props;
 
-import br.com.infrastructure.annotation.tokenconnection.TokenConnection;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OAuthClientProps {
-    @Value("${authentication.auth-server.token-uri}")
+    @Value("${auth.name:auth-server}")
+    String clientName;
+
+    @Value("${auth.token-uri}")
     String tokenUri;
 
-    @Value("${authentication.auth-server.redirect-uri:#{null}}")
+    @Value("${auth.redirect-uri:}")
     String redirectUri;
 
-    @Value("${authentication.auth-server.client-id}")
-    String clientId;
-
-    @Value("${authentication.auth-server.client-secret}")
-    String clientSecret;
-
-    @Value("#{'${authentication.auth-server.scopes:}'.split(',')}")
-    String[] scopes;
-
-    @Value("${authentication.auth-server.grant-type:#{'client_credentials'}}")
+    @Value("${auth.grant-type:client_credentials}")
     String grantType;
 
-    @Value("${authentication.auth-server.client-name:#{'auth-server'}}")
-    String clientName;
+    @Value("#{'${auth.scopes:}'.split(',')}")
+    String[] scopes;
+
+    @Value("${auth.source.provider:environment}")
+    String provider;
+
+    @Value("${auth.source.props.project-id:}")
+    String projectId;
+
+    @Value("${auth.source.props.account-id:}")
+    String accountId;
+
+    @Value("${auth.source.props.region:us-east-1}")
+    String region;
+
+    @Value("${auth.source.props.client-id-key:client_id}")
+    String clientIdKey;
+
+    @Value("${auth.source.props.client-secret-key:client_secret}")
+    String clientSecretKey;
+
+    @Value("${auth.source.props.endpoint:}")
+    String endpoint;
+
+    @Value("${auth.source.props.secret-name:}")
+    String secretName;
+
+    @Value("${auth.source.props.client-id:}")
+    String clientId;
+
+    @Value("${auth.source.props.client-secret:}")
+    String clientSecret;
+
+    public String getClientName() {
+        return clientName;
+    }
 
     public String getTokenUri() {
         return tokenUri;
@@ -35,41 +62,51 @@ public class OAuthClientProps {
         return redirectUri;
     }
 
-    public String getClientId() {
-        return clientId;
-    }
-
-    public String getClientSecret() {
-        return clientSecret;
+    public String getGrantType() {
+        return grantType;
     }
 
     public String[] getScopes() {
         return scopes;
     }
 
-    public String getGrantType() {
-        return grantType;
+    public String getProvider() {
+        return provider;
     }
 
-    public String getClientName() {
-        return clientName;
+    public String getProjectId() {
+        return projectId;
     }
 
-    public void setProps(TokenConnection props) {
-        tokenUri = getProp(props.tokenUri(), getTokenUri());
-        redirectUri = getProp(props.redirectUri(), getRedirectUri());
-        clientId = getProp(props.clientId(), getClientId());
-        clientSecret = getProp(props.clientSecret(), getClientSecret());
-        grantType = getProp(props.grantType(), getGrantType());
-        scopes = getProp(props.scopes(), getScopes());
-        clientName = getProp(props.clientName(), getClientName());
+    public String getAccountId() {
+        return accountId;
     }
 
-    private String getProp(String newValue, String oldValue) {
-        return newValue.isEmpty() ? oldValue : newValue;
+    public String getRegion() {
+        return region;
     }
 
-    private String[] getProp(String[] newValue, String[] oldValue) {
-        return newValue.length == 0 ? oldValue : newValue;
+    public String getClientIdKey() {
+        return clientIdKey;
+    }
+
+    public String getClientSecretKey() {
+        return clientSecretKey;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public String getSecretName() {
+        return secretName;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
     }
 }

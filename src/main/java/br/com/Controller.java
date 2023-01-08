@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/test")
-@TokenConnection(tokenUri = "https://api.authserver.dev.felipemenezes.me/api/v1/token", clientName = "teste")
+@TokenConnection
 public class Controller {
     AuthServerConnection authServerConnection;
 
