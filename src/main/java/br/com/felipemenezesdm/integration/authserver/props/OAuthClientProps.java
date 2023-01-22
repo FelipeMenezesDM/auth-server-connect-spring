@@ -1,4 +1,4 @@
-package br.com.integration.authserver.props;
+package br.com.felipemenezesdm.integration.authserver.props;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

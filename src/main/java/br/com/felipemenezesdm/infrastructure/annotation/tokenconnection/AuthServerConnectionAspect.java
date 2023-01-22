@@ -1,7 +1,7 @@
-package br.com.infrastructure.annotation.tokenconnection;
+package br.com.felipemenezesdm.infrastructure.annotation.tokenconnection;
 
-import br.com.integration.authserver.AuthServerToken;
-import br.com.integration.authserver.service.AuthServerService;
+import br.com.felipemenezesdm.integration.authserver.AuthServerToken;
+import br.com.felipemenezesdm.integration.authserver.service.AuthServerService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,7 +15,7 @@ public class AuthServerConnectionAspect {
     @Autowired
     AuthServerService authServerService;
 
-    @Around("@within(AuthServerConnection)")
+    @Around("@within(br.com.felipemenezesdm.infrastructure.annotation.tokenconnection.AuthServerConnection)")
     public Object trace(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object target = proceedingJoinPoint.getTarget();
 

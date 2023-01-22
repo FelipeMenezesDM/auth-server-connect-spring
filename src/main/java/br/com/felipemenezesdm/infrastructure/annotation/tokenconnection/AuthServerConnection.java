@@ -1,4 +1,4 @@
-package br.com.infrastructure.annotation.tokenconnection;
+package br.com.felipemenezesdm.infrastructure.annotation.tokenconnection;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

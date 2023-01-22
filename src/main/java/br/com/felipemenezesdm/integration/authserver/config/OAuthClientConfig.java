@@ -1,7 +1,7 @@
-package br.com.integration.authserver.config;
+package br.com.felipemenezesdm.integration.authserver.config;
 
-import br.com.integration.authserver.props.OAuthClientProps;
-import br.com.integration.authserver.service.CredentialsService;
+import br.com.felipemenezesdm.integration.authserver.props.OAuthClientProps;
+import br.com.felipemenezesdm.integration.authserver.service.CredentialsService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

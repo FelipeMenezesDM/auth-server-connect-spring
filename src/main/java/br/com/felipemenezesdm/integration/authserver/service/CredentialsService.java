@@ -1,7 +1,7 @@
-package br.com.integration.authserver.service;
+package br.com.felipemenezesdm.integration.authserver.service;
 
-import br.com.infrastructure.enums.ProvidersEnum;
-import br.com.integration.authserver.props.OAuthClientProps;
+import br.com.felipemenezesdm.infrastructure.enums.ProvidersEnum;
+import br.com.felipemenezesdm.integration.authserver.props.OAuthClientProps;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.secretsmanager.AWSSecretsManager;
 import com.amazonaws.services.secretsmanager.AWSSecretsManagerClientBuilder;

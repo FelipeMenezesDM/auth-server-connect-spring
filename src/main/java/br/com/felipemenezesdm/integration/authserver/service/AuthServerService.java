@@ -1,6 +1,6 @@
-package br.com.integration.authserver.service;
+package br.com.felipemenezesdm.integration.authserver.service;
 
-import br.com.integration.authserver.AuthServerToken;
+import br.com.felipemenezesdm.integration.authserver.AuthServerToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.AuthorizedClientServiceOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.OAuth2AuthorizeRequest;

@@ -1,6 +1,6 @@
-package br.com.infrastructure.annotation.tokenvalidation;
+package br.com.felipemenezesdm.infrastructure.annotation.tokenvalidation;
 
-import br.com.integration.authserver.service.AuthServerService;
+import br.com.felipemenezesdm.integration.authserver.service.AuthServerService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,7 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import java.lang.reflect.Method;
-import static br.com.infrastructure.constant.General.*;
+import static br.com.felipemenezesdm.infrastructure.constant.General.*;
 
 @Aspect
 @Component

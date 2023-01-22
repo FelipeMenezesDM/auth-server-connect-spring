@@ -1,4 +1,4 @@
-package br.com.infrastructure.annotation.tokenvalidation;
+package br.com.felipemenezesdm.infrastructure.annotation.tokenvalidation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

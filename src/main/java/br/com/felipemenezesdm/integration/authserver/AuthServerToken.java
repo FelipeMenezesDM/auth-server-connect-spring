@@ -1,4 +1,4 @@
-package br.com.integration.authserver;
+package br.com.felipemenezesdm.integration.authserver;
 
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;

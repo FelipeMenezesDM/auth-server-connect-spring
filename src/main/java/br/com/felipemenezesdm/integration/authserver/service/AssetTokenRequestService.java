@@ -1,6 +1,7 @@
-package br.com.integration.authserver.service;
+package br.com.felipemenezesdm.integration.authserver.service;
 
-import br.com.integration.authserver.props.OAuthClientProps;
+import br.com.felipemenezesdm.infrastructure.constant.General;
+import br.com.felipemenezesdm.integration.authserver.props.OAuthClientProps;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -10,7 +11,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import javax.annotation.PostConstruct;
-import static br.com.infrastructure.constant.General.*;
 
 @Service
 public class AssetTokenRequestService {
@@ -34,7 +34,7 @@ public class AssetTokenRequestService {
 
         String uri = oAuthClientProps.getAssetUri() + "?scopes=" + String.join(",", scopes);
         HttpHeaders headers = new HttpHeaders();
-        headers.add(STR_AUTHORIZATION, token);
+        headers.add(General.STR_AUTHORIZATION, token);
 
         HttpEntity<?> httpRequest =  new HttpEntity<>(null, headers);
         restTemplate.exchange(uri, HttpMethod.GET, httpRequest, JSONObject.class);

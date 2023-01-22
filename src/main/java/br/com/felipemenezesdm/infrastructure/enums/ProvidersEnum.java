@@ -1,4 +1,4 @@
-package br.com.infrastructure.enums;
+package br.com.felipemenezesdm.infrastructure.enums;
 
 import java.util.Arrays;
 

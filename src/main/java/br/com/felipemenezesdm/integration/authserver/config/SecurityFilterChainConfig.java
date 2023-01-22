@@ -1,4 +1,4 @@
-package br.com.integration.authserver.config;
+package br.com.felipemenezesdm.integration.authserver.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

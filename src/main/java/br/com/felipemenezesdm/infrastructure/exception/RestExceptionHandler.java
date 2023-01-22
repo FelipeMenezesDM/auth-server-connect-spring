@@ -1,4 +1,4 @@
-package br.com.infrastructure.exception;
+package br.com.felipemenezesdm.infrastructure.exception;
 
 import com.nimbusds.oauth2.sdk.ParseException;
 import com.nimbusds.oauth2.sdk.util.JSONUtils;
