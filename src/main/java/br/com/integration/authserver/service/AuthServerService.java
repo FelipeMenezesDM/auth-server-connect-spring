@@ -1,13 +1,13 @@
-package br.com.integration.authserver.config;
+package br.com.integration.authserver.service;
 
 import br.com.integration.authserver.AuthServerToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.AuthorizedClientServiceOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.OAuth2AuthorizeRequest;
+import org.springframework.stereotype.Service;
 
-@Configuration
-public class AuthServerAuthorizerConfig {
+@Service
+public class AuthServerService {
     @Autowired
     AuthorizedClientServiceOAuth2AuthorizedClientManager authorizedClientManager;
 

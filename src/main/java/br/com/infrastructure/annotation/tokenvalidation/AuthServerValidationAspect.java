@@ -1,6 +1,6 @@
 package br.com.infrastructure.annotation.tokenvalidation;
 
-import br.com.integration.authserver.config.AuthServerAuthorizerConfig;
+import br.com.integration.authserver.service.AuthServerService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 @Component
 public class AuthServerValidationAspect{
     @Autowired
-    AuthServerAuthorizerConfig authServerAuthorizerConfig;
+    AuthServerService authServerService;
 
     @Around("@within(authServerValidation)")
     public Object trace(ProceedingJoinPoint proceedingJoinPoint, AuthServerValidation authServerValidation) throws Throwable {
@@ -24,7 +24,7 @@ public class AuthServerValidationAspect{
 
         if(method.getAnnotation(AuthServerValidation.class) == null) {
             String token = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getHeader("Authorization");
-            authServerAuthorizerConfig.validate(token, authServerValidation.scopes());
+            authServerService.validate(token, authServerValidation.scopes());
         }
 
         return proceedingJoinPoint.proceed();
@@ -40,7 +40,7 @@ public class AuthServerValidationAspect{
             scopes = StringUtils.concatenateStringArrays(scopes, classAnnotation.scopes());
         }
 
-        authServerAuthorizerConfig.validate(token, scopes);
+        authServerService.validate(token, scopes);
         return proceedingJoinPoint.proceed();
     }
 }
