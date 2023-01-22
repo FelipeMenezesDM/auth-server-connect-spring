@@ -1,6 +1,6 @@
 auth-server:
 #  name:
-  token-uri: https://api.authserver.dev.felipemenezes.me/api/v1/token
+  uri: http://localhost:1080/api/v1
 #  redirect-uri:
 #  grant-type: client_credentials
 #  scopes:
@@ -13,5 +13,5 @@ auth-server:
 #      client-secret-key: client_secret
 #      endpoint: http://192.168.100.98:4566
 #      secret-name: auth-server-main-client-secrets
-      client-id: 982413b7-ee37-4e8d-a3ac-04a6b2188678
-      client-secret: a717eee4-7d74-4894-9da9-f4732e0c8859
+      client-id: 9835e498-eb18-4d7a-8e8e-230b2190df1f
+      client-secret: 51469bf9-081f-4023-a391-b94877bb5b1b

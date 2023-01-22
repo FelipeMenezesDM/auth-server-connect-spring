@@ -8,8 +8,11 @@ public class OAuthClientProps {
     @Value("${auth-server.name:auth-server}")
     String clientName;
 
-    @Value("${auth-server.token-uri}")
+    @Value("${auth-server.uri}/token")
     String tokenUri;
+
+    @Value("${auth-server:uri}/asset")
+    String assetUri;
 
     @Value("${auth-server.redirect-uri:}")
     String redirectUri;
@@ -53,6 +56,10 @@ public class OAuthClientProps {
 
     public String getTokenUri() {
         return tokenUri;
+    }
+
+    public String getAssetUri() {
+        return assetUri;
     }
 
     public String getRedirectUri() {

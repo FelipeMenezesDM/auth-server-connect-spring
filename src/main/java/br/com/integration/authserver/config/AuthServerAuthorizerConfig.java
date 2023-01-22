@@ -17,4 +17,8 @@ public class AuthServerAuthorizerConfig {
     public AuthServerToken authorize() {
         return new AuthServerToken(authorizedClientManager.authorize(authorizeRequest));
     }
+
+    public void validate(String token, String[] scopes) {
+
+    }
 }
