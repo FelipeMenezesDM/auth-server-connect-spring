@@ -28,6 +28,10 @@ public class AssetTokenRequestService {
     }
 
     public void validate(String token, String[] scopes) {
+        if(!oAuthClientProps.getEnabled()) {
+            return;
+        }
+
         String uri = oAuthClientProps.getAssetUri() + "?scopes=" + String.join(",", scopes);
         HttpHeaders headers = new HttpHeaders();
         headers.add(STR_AUTHORIZATION, token);

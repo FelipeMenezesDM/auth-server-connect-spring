@@ -8,6 +8,9 @@ public class OAuthClientProps {
     @Value("${auth-server.name:auth-server}")
     String clientName;
 
+    @Value("${auth-server.enabled:true}")
+    Boolean enabled;
+
     @Value("${auth-server.uri}/token")
     String tokenUri;
 
@@ -52,6 +55,10 @@ public class OAuthClientProps {
 
     public String getClientName() {
         return clientName;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
     }
 
     public String getTokenUri() {
