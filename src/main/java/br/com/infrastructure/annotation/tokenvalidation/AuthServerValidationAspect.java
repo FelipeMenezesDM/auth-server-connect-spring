@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import java.lang.reflect.Method;
+import static br.com.infrastructure.constant.General.*;
 
 @Aspect
 @Component
@@ -23,7 +24,7 @@ public class AuthServerValidationAspect{
         Method method = ((MethodSignature) proceedingJoinPoint.getSignature()).getMethod();
 
         if(method.getAnnotation(AuthServerValidation.class) == null) {
-            String token = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getHeader("Authorization");
+            String token = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getHeader(STR_AUTHORIZATION);
             authServerService.validate(token, authServerValidation.scopes());
         }
 
@@ -33,7 +34,7 @@ public class AuthServerValidationAspect{
     @Around("@annotation(authServerValidation)")
     public Object traceMethod(ProceedingJoinPoint proceedingJoinPoint, AuthServerValidation authServerValidation) throws Throwable {
         String[] scopes = authServerValidation.scopes();
-        String token = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getHeader("Authorization");
+        String token = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getHeader(STR_AUTHORIZATION);
         AuthServerValidation classAnnotation = proceedingJoinPoint.getTarget().getClass().getAnnotation(AuthServerValidation.class);
 
         if(classAnnotation != null) {

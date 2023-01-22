@@ -11,7 +11,7 @@ public class OAuthClientProps {
     @Value("${auth-server.uri}/token")
     String tokenUri;
 
-    @Value("${auth-server:uri}/asset")
+    @Value("${auth-server.uri}/asset")
     String assetUri;
 
     @Value("${auth-server.redirect-uri:}")

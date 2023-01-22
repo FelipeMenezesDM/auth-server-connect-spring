@@ -14,11 +14,14 @@ public class AuthServerService {
     @Autowired
     OAuth2AuthorizeRequest authorizeRequest;
 
+    @Autowired
+    AssetTokenRequestService assetTokenRequestService;
+
     public AuthServerToken authorize() {
         return new AuthServerToken(authorizedClientManager.authorize(authorizeRequest));
     }
 
     public void validate(String token, String[] scopes) {
-
+        assetTokenRequestService.validate(token, scopes);
     }
 }
