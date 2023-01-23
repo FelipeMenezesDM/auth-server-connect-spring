@@ -41,8 +41,8 @@ public class OAuthClientProps {
     @Value("${auth-server.source.props.client-secret-key:client_secret}")
     String clientSecretKey;
 
-    @Value("${auth-server.source.props.endpoint:}")
-    String endpoint;
+    @Value("${auth-server.source.props.end-point:}")
+    String endPoint;
 
     @Value("${auth-server.source.props.secret-name:}")
     String secretName;
@@ -101,8 +101,8 @@ public class OAuthClientProps {
         return clientSecretKey;
     }
 
-    public String getEndpoint() {
-        return endpoint;
+    public String getEndPoint() {
+        return endPoint;
     }
 
     public String getSecretName() {

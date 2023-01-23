@@ -1,4 +1,5 @@
 #auth-server:
+#  enabled: true
 #  name:
 #  uri: http://localhost:1080/api/v1
 #  redirect-uri:
@@ -11,7 +12,7 @@
 #      region: us-east-1
 #      client-id-key: client_id
 #      client-secret-key: client_secret
-#      endpoint: http://localhost:4566
+#      end-point: http://localhost:4566
 #      secret-name: auth-server-main-client-secrets
 #      client-id:
 #      client-secret:

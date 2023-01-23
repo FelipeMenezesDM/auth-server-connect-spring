@@ -43,7 +43,7 @@ public class CredentialsService {
 
     private JSONObject getCredentialsFromAWSSecretsManager() {
         String region = oAuthClientProps.getRegion();
-        String endPoint = Optional.ofNullable(oAuthClientProps.getEndpoint()).orElse(String.format(DEFAULT_ENDPOINT, region));
+        String endPoint = Optional.ofNullable(oAuthClientProps.getEndPoint()).orElse(String.format(DEFAULT_ENDPOINT, region));
         AWSSecretsManager client = AWSSecretsManagerClientBuilder.standard().withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endPoint, region)).build();
         GetSecretValueRequest getSecretValueRequest = new GetSecretValueRequest().withSecretId(oAuthClientProps.getSecretName());
 
