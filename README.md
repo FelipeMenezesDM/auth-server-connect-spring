@@ -1,6 +1,14 @@
 # Auth Server Connect
 Biblioteca de integração com o Auth Server para geração de tokens de acesso ou validação de tokens de acesso em rotas autenticadas.
 
+## Tópicos
+- [Instalação com Maven](#instalação-com-maven)
+- [Geração de tokens](#geração-de-tokens)
+  - [Configuração básica](#configuração-básica)
+  - [Provedores](#provedores) 
+- [Validação de tokens](#validação-de-tokens)
+- [Propriedades de configuração](#propriedades-de-configuração)
+
 ## Instalação com Maven
 
 
@@ -37,7 +45,7 @@ auth-server:
 2. Criar uma propriedade do tipo _AuthServerToken_ que irá armazenar os tokens gerados.
 3. Connfigurar as propriedades básicas da aplicação.
 
-### Providers
+### Provedores
 Atualmente, a biblioteca disponibiliza quatro formas para obter as credenciais para geração de tokens no Auth Server: **application**, **environment**, **aws** e **gcp**.
 
 #### Application
@@ -153,6 +161,28 @@ public class Controller {
 
 ## Propriedades de configuração
 Descrição de todas as propriedades de configuração disponíveis para a biblioteca.
+
+```yaml
+# application-example.yml
+auth-server:
+  enabled: #
+  name: #
+  uri: #
+  redirect-uri: #
+  grant-type: #
+  scopes: #
+  source:
+    provider: #
+    props:
+      project-id: #
+      region: #
+      client-id-key: #
+      client-secret-key: #
+      end-point: #
+      secret-name: #
+      client-id: #
+      client-secret: #
+```
 
 - **enabled:**
     - **tipo:** _boolean_
