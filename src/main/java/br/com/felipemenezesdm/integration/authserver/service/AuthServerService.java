@@ -21,7 +21,7 @@ public class AuthServerService {
         return new AuthServerToken(authorizedClientManager.authorize(authorizeRequest));
     }
 
-    public void validate(String token, String[] scopes) {
-        assetTokenRequestService.validate(token, scopes);
+    public void validate(String token, String correlationId, String[] scopes) {
+        assetTokenRequestService.validate(token, correlationId, scopes);
     }
 }

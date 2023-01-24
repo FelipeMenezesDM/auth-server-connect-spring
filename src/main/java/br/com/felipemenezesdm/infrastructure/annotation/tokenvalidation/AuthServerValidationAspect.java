@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import static br.com.felipemenezesdm.infrastructure.constant.General.*;
 
@@ -24,8 +25,8 @@ public class AuthServerValidationAspect{
         Method method = ((MethodSignature) proceedingJoinPoint.getSignature()).getMethod();
 
         if(method.getAnnotation(AuthServerValidation.class) == null) {
-            String token = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getHeader(STR_AUTHORIZATION);
-            authServerService.validate(token, authServerValidation.scopes());
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+            authServerService.validate(request.getHeader(STR_AUTHORIZATION), request.getHeader(STR_CORRELATION_ID), authServerValidation.scopes());
         }
 
         return proceedingJoinPoint.proceed();
@@ -33,15 +34,15 @@ public class AuthServerValidationAspect{
 
     @Around("@annotation(authServerValidation)")
     public Object traceMethod(ProceedingJoinPoint proceedingJoinPoint, AuthServerValidation authServerValidation) throws Throwable {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        AuthServerValidation annotation = proceedingJoinPoint.getTarget().getClass().getAnnotation(AuthServerValidation.class);
         String[] scopes = authServerValidation.scopes();
-        String token = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getHeader(STR_AUTHORIZATION);
-        AuthServerValidation classAnnotation = proceedingJoinPoint.getTarget().getClass().getAnnotation(AuthServerValidation.class);
 
-        if(classAnnotation != null) {
-            scopes = StringUtils.concatenateStringArrays(scopes, classAnnotation.scopes());
+        if(annotation != null) {
+            scopes = StringUtils.concatenateStringArrays(scopes, annotation.scopes());
         }
 
-        authServerService.validate(token, scopes);
+        authServerService.validate(request.getHeader(STR_AUTHORIZATION), request.getHeader(STR_CORRELATION_ID), scopes);
         return proceedingJoinPoint.proceed();
     }
 }

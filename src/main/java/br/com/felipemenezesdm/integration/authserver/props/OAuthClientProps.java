@@ -47,10 +47,10 @@ public class OAuthClientProps {
     @Value("${auth-server.source.props.secret-name:}")
     String secretName;
 
-    @Value("${auth-server.source.props.client-id:}")
+    @Value("${auth-server.source.props.client-id:initial-value}")
     String clientId;
 
-    @Value("${auth-server.source.props.client-secret:}")
+    @Value("${auth-server.source.props.client-secret:initial-value}")
     String clientSecret;
 
     public String getClientName() {
