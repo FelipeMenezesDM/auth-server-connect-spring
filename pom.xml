@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.felipemenezesdm</groupId>
     <artifactId>auth-server-connect</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -17,12 +17,18 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <jackson.version>2.14.1</jackson.version>
-        <lombok.version>1.18.24</lombok.version>
         <aws.secretsmanager.version>1.12.380</aws.secretsmanager.version>
         <gcp.secretmanager.version>2.7.0</gcp.secretmanager.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Repository</name>
+            <url>https://maven.pkg.github.com/felipemenezesdm/auth-server-connect</url>
+        </repository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
