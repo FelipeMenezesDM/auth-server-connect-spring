@@ -1,7 +1,8 @@
 name: Build and Deploy to GCP - DEV
 on:
   push:
-    tags: *
+    tags:
+     - '*'
 jobs:
   ci-cd:
     name: CI/CD
