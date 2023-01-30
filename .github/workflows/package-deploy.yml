@@ -8,5 +8,5 @@ jobs:
     name: CI/CD
     uses: felipemenezesdm/general-deploy-actions/.github/workflows/github-maven-package.yml@develop
     with:
-      username: ${{ github.event.repository.name }}
+      username: ${{ github.event.org.login }}
       password: ${{ github.token }}
