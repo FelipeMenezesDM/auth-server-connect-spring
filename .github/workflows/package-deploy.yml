@@ -7,6 +7,6 @@ jobs:
   ci-cd:
     name: CI/CD
     uses: felipemenezesdm/general-deploy-actions/.github/workflows/github-maven-package.yml@develop
+    secrets: inherit
     with:
       username: ${{ github.actor }}
-      password: ${{ secrets.GITHUB_TOKEN }}
