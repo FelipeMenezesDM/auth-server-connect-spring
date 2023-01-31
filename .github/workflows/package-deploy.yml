@@ -30,4 +30,4 @@ jobs:
           java-version: 11
           distribution: temurin
       - name: Deploy
-        run: mvn deploy -Drepo.username=felipemenezesdm -Drepo.password=${{ github.token }}
+        run: mvn deploy -Drepo.usrnm="${{ github.actor }}" -Drepo.pswd="${{ github.token }}"
