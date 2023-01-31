@@ -10,7 +10,59 @@ Biblioteca de integração com o Auth Server para geração de tokens de acesso 
 - [Propriedades de configuração](#propriedades-de-configuração)
 
 ## Instalação com Maven
+Crie o arquivo de configuração do maven ou inclua o repositório no arquivo já existente:
+```xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
+  <activeProfiles>
+    <activeProfile>github</activeProfile>
+  </activeProfiles>
+
+  <profiles>
+    <profile>
+      <id>github</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/felipemenezesdm/auth-server-connect</url>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+
+  <servers>
+    <server>
+      <id>github</id>
+      <username>${your.username}</username>
+      <password>${your.token}</password>
+    </server>
+  </servers>
+</settings>
+```
+
+Não esqueça de substituir ${your.username} e ${your.token} por suas credenciais. Após isso, execute o comando abaixo para baixar as dependências:
+```
+maven install
+```
+
+Inclua a dependência no arquivo pom:
+```xml
+<dependency>
+  <groupId>br.com.felipemenezesdm</groupId>
+  <artifactId>auth-server-connect</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
 
 ## Geração de tokens
 Ao instalar a dependência, seguindo o exemplo do tópico anterior, a anotação _@AuthServerConnect_ estará disponível para uso nas classes de integração do seu projeto.
