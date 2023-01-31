@@ -1,33 +1,13 @@
-#name: Deploy maven package to GitHub Repository
-#on:
-#  push:
-#    tags:
-#     - '*'
-#jobs:
-#  ci-cd:
-#    name: CI/CD
-#    uses: felipemenezesdm/general-deploy-actions/.github/workflows/github-maven-package.yml@develop
-#    permissions:
-#      contents: read
-#      packages: write
-#    secrets: inherit
-#    with:
-#      username: ${{ github.actor }}
 name: Deploy maven package to GitHub Repository
 on:
   push:
-    branches: develop
+    tags:
+     - '*'
 jobs:
-  build:
-    name: Deploy
-    runs-on: ubuntu-latest
-    permissions: write-all
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: 11
-          distribution: temurin
-      - name: Deploy
-        run: mvn deploy -s settings.xml -Dpkg.version="${{ github.ref_name }}" -Drepo.usrnm="${{ github.actor }}" -Drepo.pswd="${{ github.token }}"
+  ci-cd:
+    name: CI/CD
+    uses: felipemenezesdm/general-deploy-actions/.github/workflows/github-maven-package.yml@develop
+    with:
+      version: ${{ github.ref_name }}
+      username: ${{ github.actor }}
+      password: ${{ github.token }}
