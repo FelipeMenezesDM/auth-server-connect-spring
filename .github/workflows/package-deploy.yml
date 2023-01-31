@@ -7,5 +7,3 @@ jobs:
   ci-cd:
     name: CI/CD
     uses: felipemenezesdm/general-deploy-actions/.github/workflows/github-maven-package.yml@develop
-    with:
-      version: ${{ github.ref_name }}
