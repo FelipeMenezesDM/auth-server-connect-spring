@@ -10,12 +10,11 @@ Biblioteca de integração com o Auth Server para geração de tokens de acesso 
 - [Propriedades de configuração](#propriedades-de-configuração)
 
 ## Instalação com Maven
-Crie o arquivo de configuração do maven ou inclua o repositório no arquivo já existente:
+Crie o arquivo de configuração do maven ou inclua o repositório e o servidor no arquivo já existente:
 ```xml
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
-                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
   <activeProfiles>
     <activeProfile>github</activeProfile>
@@ -43,16 +42,11 @@ Crie o arquivo de configuração do maven ou inclua o repositório no arquivo j�
   <servers>
     <server>
       <id>github</id>
-      <username>${your.username}</username>
-      <password>${your.token}</password>
+      <username>${repo.usrnm}</username>
+      <password>${repo.pswd}</password>
     </server>
   </servers>
 </settings>
-```
-
-Não esqueça de substituir ${your.username} e ${your.token} por suas credenciais. Após isso, execute o comando abaixo para baixar as dependências:
-```
-maven install
 ```
 
 Inclua a dependência no arquivo pom:
@@ -62,6 +56,17 @@ Inclua a dependência no arquivo pom:
   <artifactId>auth-server-connect</artifactId>
   <version>1.0.0</version>
 </dependency>
+```
+
+Execute com comando abaixo para download de dependências, substituindo os parâmetros por seus respectivos valores:
+```
+mvn install -Drepo.usrnm="$username" -Drepo.pswd="$password"
+```
+
+## Deploy manual
+O deploy da biblioteca é realizado automaticamente sempre que houver a criação de uma nova tag de versão. Entretatando, se for necessário realizar seu deploy manual, basta executar o comando abaixo, substuindo os parâmetros por seus respectivos valores:
+```
+mvn deploy -s settings.xml -Dpkg.version="$version" -Drepo.usrnm="$username" -Drepo.pswd="$password"
 ```
 
 ## Geração de tokens
