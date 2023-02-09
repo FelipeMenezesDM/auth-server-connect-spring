@@ -5,8 +5,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.felipemenezesdm</groupId>
-    <artifactId>auth-server-connect</artifactId>
-    <version>${pkg.version}</version>
+    <artifactId>auth-server-connect-maven</artifactId>
+    <version>1.0.0</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -26,7 +26,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Repository</name>
-            <url>https://maven.pkg.github.com/felipemenezesdm/auth-server-connect</url>
+            <url>https://maven.pkg.github.com/felipemenezesdm/${artifactId}</url>
         </repository>
     </distributionManagement>
 
