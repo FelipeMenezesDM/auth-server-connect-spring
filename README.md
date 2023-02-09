@@ -3,6 +3,7 @@ Biblioteca de integração com o Auth Server para geração de tokens de acesso 
 
 ## Tópicos
 - [Instalação com Maven](#instalação-com-maven)
+- [Deploy manual](#deploy-manual)
 - [Geração de tokens](#geração-de-tokens)
   - [Configuração básica](#configuração-básica)
   - [Provedores](#provedores) 
@@ -283,7 +284,7 @@ auth-server:
       - **obrigatório:** sim, quando o provedor for **gcp**
     - **region:**
       - **tipo:** _string_
-      - **descrição:** exclusivo para o provedor **aws**, para identificar o região padrão do cliente.
+      - **descrição:** exclusivo para o provedor **aws**, para identificar a região padrão do cliente.
       - **obrigatório:** sim, quando o provedor for **aws**
     - **client-id-key:**
       - **tipo:** _string_
@@ -301,7 +302,7 @@ auth-server:
       - **obrigatório:** não
     - **secret-name:**
       - **tipo:** _string_
-      - **descrição:** definir o nome da secret onde serão obtidas as credenticiais. Válido para os provedor **aws** e **gcp**.
+      - **descrição:** definir o nome da secret onde serão obtidas as credenticiais. Válido para os provedores **aws** e **gcp**.
       - **obrigatório:** sim, quando o provedor for **aws** ou **gcp**
     - **client-id:**
       - **tipo:** _string_

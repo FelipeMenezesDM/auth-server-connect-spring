@@ -15,7 +15,7 @@ public class AuthServerConnectionAspect {
     @Autowired
     AuthServerService authServerService;
 
-    @Around("@within(br.com.felipemenezesdm.infrastructure.annotation.tokenconnection.AuthServerConnection)")
+    @Around("@within(AuthServerConnection)")
     public Object trace(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object target = proceedingJoinPoint.getTarget();
 

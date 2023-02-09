@@ -34,7 +34,7 @@ public class AssetTokenRequestService {
             return;
         }
 
-        String uri = oAuthClientProps.getAssetUri() + "?scopes=" + String.join(",", scopes);
+        String uri = String.valueOf(oAuthClientProps.getAssetUri()).concat( "?scopes=").concat(String.join(",", scopes));
         HttpHeaders headers = new HttpHeaders();
         headers.add(STR_AUTHORIZATION, token);
         headers.add(STR_CORRELATION_ID, Optional.ofNullable(correlationId).orElse(UUID.randomUUID().toString()));
