@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.felipemenezesdm</groupId>
-    <artifactId>auth-server-connect-maven</artifactId>
+    <artifactId>auth-server-connect-spring</artifactId>
     <version>1.0.0</version>
 
     <parent>
@@ -27,7 +27,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Repository</name>
-            <url>https://maven.pkg.github.com/felipemenezesdm/${artifactId}</url>
+            <url>https://maven.pkg.github.com/felipemenezesdm/${project.artifactId}</url>
         </repository>
     </distributionManagement>
 
@@ -50,7 +50,7 @@
         </dependency>
         <dependency>
             <groupId>br.com.felipemenezesdm</groupId>
-            <artifactId>maven-secret-manager-suite</artifactId>
+            <artifactId>spring-secret-manager-suite</artifactId>
             <version>${maven.secret.maneger.suite.version}</version>
         </dependency>
     </dependencies>
