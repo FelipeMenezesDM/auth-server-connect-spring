@@ -15,11 +15,9 @@
     </parent>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <aws.secretsmanager.version>1.12.380</aws.secretsmanager.version>
-        <maven.secret.maneger.suite.version>1.0.0</maven.secret.maneger.suite.version>
-        <gcp.secretmanager.version>2.7.0</gcp.secretmanager.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <spring.secret.maneger.suite.version>1.0.0</spring.secret.maneger.suite.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -51,7 +49,7 @@
         <dependency>
             <groupId>br.com.felipemenezesdm</groupId>
             <artifactId>spring-secret-manager-suite</artifactId>
-            <version>${maven.secret.maneger.suite.version}</version>
+            <version>${spring.secret.maneger.suite.version}</version>
         </dependency>
     </dependencies>
 </project>
