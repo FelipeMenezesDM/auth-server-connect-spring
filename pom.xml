@@ -15,9 +15,9 @@
     </parent>
 
     <properties>
+        <spring.secret.maneger.suite.version>1.0.0</spring.secret.maneger.suite.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <spring.secret.maneger.suite.version>1.0.0</spring.secret.maneger.suite.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
