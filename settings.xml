@@ -11,6 +11,7 @@
 
     <activeProfiles>
         <activeProfile>general</activeProfile>
+        <activeProfile>github</activeProfile>
     </activeProfiles>
 
     <profiles>
@@ -24,6 +25,9 @@
                 <repository>
                     <id>spring-secret-manager-suite</id>
                     <url>https://maven.pkg.github.com/felipemenezesdm/spring-secret-manager-suite</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
                 </repository>
             </repositories>
         </profile>
