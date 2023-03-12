@@ -7,6 +7,8 @@
     <groupId>br.com.felipemenezesdm</groupId>
     <artifactId>auth-server-connect-spring</artifactId>
     <version>1.0.0</version>
+    <url>https://github.com/felipemenezesdm/${project.artifactId}</url>
+    <description>Biblioteca Java para integração com o Auth Server</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

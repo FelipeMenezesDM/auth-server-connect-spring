@@ -29,7 +29,7 @@ Crie o arquivo de configuração do maven ou inclua o repositório e o servidor 
           <url>https://repo1.maven.org/maven2</url>
         </repository>
         <repository>
-          <id>auth-server-connect-spring</id>
+          <id>github</id>
           <url>https://maven.pkg.github.com/felipemenezesdm/auth-server-connect-spring</url>
         </repository>
       </repositories>
