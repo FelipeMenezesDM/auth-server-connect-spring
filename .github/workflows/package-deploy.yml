@@ -1,9 +1,24 @@
 name: Deploy maven package to GitHub Repository
 on:
   push:
-    tags:
-     - '*'
+    branches:
+     - 'develop'
 jobs:
-  ci-cd:
-    name: CI/CD
-    uses: felipemenezesdm/general-deploy-actions/.github/workflows/github-maven-package.yml@v1
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Maven
+        uses: s4u/setup-maven-action@v1.7.0
+        with:
+          checkout-fetch-depth: 0
+          java-version: 11
+          java-distribution: temurin
+          maven-version: 3.8.7
+      - name: Deploy
+        run: mvn --batch-mode deploy -s settings.xml -Drepo.usrnm=${{ github.actor }} -Drepo.pswd=${{ github.token }}
