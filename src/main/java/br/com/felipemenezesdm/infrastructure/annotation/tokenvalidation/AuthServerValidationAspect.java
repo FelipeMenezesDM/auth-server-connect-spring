@@ -12,6 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Objects;
 import static br.com.felipemenezesdm.infrastructure.constant.General.*;
 
@@ -40,7 +41,7 @@ public class AuthServerValidationAspect{
         String[] scopes = authServerValidation.scopes();
 
         if(!Objects.isNull(annotation)) {
-            scopes = StringUtils.concatenateStringArrays(scopes, annotation.scopes());
+            scopes = Arrays.stream(Objects.requireNonNull(StringUtils.concatenateStringArrays(scopes, annotation.scopes()))).distinct().toArray(String[]::new);
         }
 
         authServerService.validate(request.getHeader(STR_AUTHORIZATION), request.getHeader(STR_CORRELATION_ID), scopes);
