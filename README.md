@@ -237,6 +237,7 @@ auth-server:
   redirect-uri: #
   grant-type: #
   scopes: #
+  timeout: 3000
   source:
     provider: #
     props:
@@ -279,6 +280,11 @@ auth-server:
     - **descrição:** escopos para geração do token, seperados por vírgula. Ex: scope1,scope2,scope2
     - **obrigatório:** não
     - **padrão:** null
+- **timeout:**
+  - **tipo:** _int_
+  - **descrição:** tempo limite das requisições, em milissegundos.
+  - **obrigatório:** não
+  - **padrão:** 300
 - **source:**
   - **provider:**
       - **tipo:** _string_

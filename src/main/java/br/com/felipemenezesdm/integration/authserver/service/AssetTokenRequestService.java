@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import javax.annotation.PostConstruct;
+import java.time.Duration;
 import java.util.Optional;
 import java.util.UUID;
 import static br.com.felipemenezesdm.infrastructure.constant.General.*;
@@ -26,20 +27,21 @@ public class AssetTokenRequestService {
 
     @PostConstruct
     public void init() {
-        restTemplate = restTemplateBuilder.build();
+        restTemplate = restTemplateBuilder
+                .setReadTimeout(Duration.ofMillis(oAuthClientProps.getTimeout()))
+                .setConnectTimeout(Duration.ofMillis(oAuthClientProps.getTimeout()))
+                .build();
     }
 
     public void validate(String token, String correlationId, String[] scopes) {
-        if(!oAuthClientProps.getEnabled()) {
-            return;
+        if(oAuthClientProps.getEnabled()) {
+            String uri = String.valueOf(oAuthClientProps.getAssetUri()).concat("?scopes=").concat(String.join(",", scopes));
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(STR_AUTHORIZATION, token);
+            headers.add(STR_CORRELATION_ID, Optional.ofNullable(correlationId).orElse(UUID.randomUUID().toString()));
+
+            HttpEntity<?> httpRequest = new HttpEntity<>(null, headers);
+            restTemplate.exchange(uri, HttpMethod.GET, httpRequest, JSONObject.class);
         }
-
-        String uri = String.valueOf(oAuthClientProps.getAssetUri()).concat( "?scopes=").concat(String.join(",", scopes));
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(STR_AUTHORIZATION, token);
-        headers.add(STR_CORRELATION_ID, Optional.ofNullable(correlationId).orElse(UUID.randomUUID().toString()));
-
-        HttpEntity<?> httpRequest =  new HttpEntity<>(null, headers);
-        restTemplate.exchange(uri, HttpMethod.GET, httpRequest, JSONObject.class);
     }
 }

@@ -5,6 +5,7 @@
 #  redirect-uri:
 #  grant-type: client_credentials
 #  scopes:
+#  timeout: 300
 #  source:
 #    provider: application # aws|gcp|application|environment
 #    props:
