@@ -26,7 +26,7 @@ public class OAuthClientProps {
     @Value("#{'${auth-server.scopes:}'.split(',')}")
     String[] scopes;
 
-    @Value("${auth-server.timeout:3000}")
+    @Value("${auth-server.timeout:300}")
     Integer timeout;
 
     @Value("${auth-server.source.provider:environment}")

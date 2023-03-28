@@ -284,7 +284,7 @@ auth-server:
   - **tipo:** _int_
   - **descrição:** tempo limite das requisições, em milissegundos.
   - **obrigatório:** não
-  - **padrão:** 3000
+  - **padrão:** 300
 - **source:**
   - **provider:**
       - **tipo:** _string_
