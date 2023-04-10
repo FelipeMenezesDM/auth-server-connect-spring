@@ -33,12 +33,14 @@ public class AssetTokenRequestService {
                 .build();
     }
 
-    public void validate(String token, String correlationId, String[] scopes) {
+    public void validate(String token, String correlationId, String flowId, String apiKey, String[] scopes) {
         if(oAuthClientProps.getEnabled()) {
             String uri = String.valueOf(oAuthClientProps.getAssetUri()).concat("?scopes=").concat(String.join(",", scopes));
             HttpHeaders headers = new HttpHeaders();
             headers.add(STR_AUTHORIZATION, token);
             headers.add(STR_CORRELATION_ID, Optional.ofNullable(correlationId).orElse(UUID.randomUUID().toString()));
+            headers.add(STR_FLOW_ID, flowId);
+            headers.add(STR_API_KEY, apiKey);
 
             HttpEntity<?> httpRequest = new HttpEntity<>(null, headers);
             restTemplate.exchange(uri, HttpMethod.GET, httpRequest, JSONObject.class);

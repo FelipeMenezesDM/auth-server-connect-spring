@@ -235,7 +235,6 @@ auth-server:
   name: #
   uri: #
   redirect-uri: #
-  grant-type: #
   scopes: #
   timeout: 3000
   source:
@@ -270,11 +269,6 @@ auth-server:
   - **descrição:** URL de redirecionamento do cliente
   - **obrigatório:** não
   - **padrão:** _null_
-- **grant-type:**
-  - **tipo:** _string_
-  - **descrição:** tipo de concessão do token
-  - **obrigatório:** sim
-  - **padrão:** client_credentials
 - **scopes:**
     - **tipo:** _string_
     - **descrição:** escopos para geração do token, seperados por vírgula. Ex: scope1,scope2,scope2

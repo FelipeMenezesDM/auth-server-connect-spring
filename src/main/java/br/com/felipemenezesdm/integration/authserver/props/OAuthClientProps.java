@@ -20,9 +20,6 @@ public class OAuthClientProps {
     @Value("${auth-server.redirect-uri:}")
     String redirectUri;
 
-    @Value("${auth-server.grant-type:client_credentials}")
-    String grantType;
-
     @Value("#{'${auth-server.scopes:}'.split(',')}")
     String[] scopes;
 
@@ -74,10 +71,6 @@ public class OAuthClientProps {
 
     public String getRedirectUri() {
         return redirectUri;
-    }
-
-    public String getGrantType() {
-        return grantType;
     }
 
     public String[] getScopes() {

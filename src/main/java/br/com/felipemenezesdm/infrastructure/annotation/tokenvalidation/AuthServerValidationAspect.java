@@ -28,7 +28,13 @@ public class AuthServerValidationAspect{
 
         if(Objects.isNull(method.getAnnotation(AuthServerValidation.class))) {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-            authServerService.validate(request.getHeader(STR_AUTHORIZATION), request.getHeader(STR_CORRELATION_ID), authServerValidation.scopes());
+            authServerService.validate(
+                    request.getHeader(STR_AUTHORIZATION),
+                    request.getHeader(STR_CORRELATION_ID),
+                    request.getHeader(STR_FLOW_ID),
+                    request.getHeader(STR_API_KEY),
+                    authServerValidation.scopes()
+            );
         }
 
         return proceedingJoinPoint.proceed();
@@ -44,7 +50,14 @@ public class AuthServerValidationAspect{
             scopes = Arrays.stream(Objects.requireNonNull(StringUtils.concatenateStringArrays(scopes, annotation.scopes()))).distinct().toArray(String[]::new);
         }
 
-        authServerService.validate(request.getHeader(STR_AUTHORIZATION), request.getHeader(STR_CORRELATION_ID), scopes);
+        authServerService.validate(
+                request.getHeader(STR_AUTHORIZATION),
+                request.getHeader(STR_CORRELATION_ID),
+                request.getHeader(STR_FLOW_ID),
+                request.getHeader(STR_API_KEY),
+                scopes
+        );
+
         return proceedingJoinPoint.proceed();
     }
 }

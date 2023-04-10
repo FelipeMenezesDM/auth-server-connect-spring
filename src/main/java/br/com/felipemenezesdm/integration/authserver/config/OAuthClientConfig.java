@@ -23,6 +23,7 @@ import org.springframework.security.oauth2.client.registration.InMemoryClientReg
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
 @Configuration
@@ -33,19 +34,11 @@ public class OAuthClientConfig {
     @Autowired
     CredentialsService credentialsService;
 
-    @Bean
-    public ClientRegistration clientRegistration() {
-        JSONObject credentials = credentialsService.getCredentials();
+    JSONObject credentials;
 
-        return ClientRegistration
-                .withRegistrationId(oAuthClientProps.getClientName())
-                .clientId(credentials.get(oAuthClientProps.getClientIdKey()).toString())
-                .clientSecret(credentials.get(oAuthClientProps.getClientSecretKey()).toString())
-                .authorizationGrantType(new AuthorizationGrantType(oAuthClientProps.getGrantType()))
-                .redirectUri(oAuthClientProps.getRedirectUri())
-                .scope(oAuthClientProps.getScopes())
-                .tokenUri(oAuthClientProps.getTokenUri())
-                .build();
+    @PostConstruct
+    public void init() {
+        credentials = credentialsService.getCredentials();
     }
 
     @Bean
@@ -57,20 +50,36 @@ public class OAuthClientConfig {
     }
 
     @Bean
-    public ClientRegistrationRepository clientRegistrationRepository(ClientRegistration clientRegistration) {
-        return new InMemoryClientRegistrationRepository(clientRegistration);
+    public ClientRegistrationRepository clientRegistrationRepository() {
+        return new InMemoryClientRegistrationRepository(getClientRegistration(AuthorizationGrantType.CLIENT_CREDENTIALS));
     }
 
     @Bean
     public OAuth2AuthorizedClientService authorizedClientService(ClientRegistrationRepository clientRegistrationRepository) {
-        return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository);
+        return inMemoryOAuth2AuthorizedClientService(clientRegistrationRepository);
     }
 
     @Bean
-    public AuthorizedClientServiceOAuth2AuthorizedClientManager authorizedClientManager(
-            ClientRegistrationRepository clientRegistrationRepository,
-            OAuth2AuthorizedClientService authorizedClientService
-    ) {
+    public AuthorizedClientServiceOAuth2AuthorizedClientManager authorizedClientManager(OAuth2AuthorizedClientService authorizedClientService) {
+        return getAuthorizedClientManager(clientRegistrationRepository(), authorizedClientService);
+    }
+
+    @Bean
+    public AuthorizedClientServiceOAuth2AuthorizedClientManager authorizedClientManagerRefreshToken(OAuth2AuthorizedClientService authorizedClientService) {
+        return getAuthorizedClientManager(new InMemoryClientRegistrationRepository(getClientRegistration(AuthorizationGrantType.REFRESH_TOKEN)), authorizedClientService);
+    }
+
+    @Bean
+    public AuthorizedClientServiceOAuth2AuthorizedClientManager authorizedClientManagerPassword(OAuth2AuthorizedClientService authorizedClientService) {
+        return getAuthorizedClientManager(new InMemoryClientRegistrationRepository(getClientRegistration(AuthorizationGrantType.PASSWORD)), authorizedClientService);
+    }
+
+    @Bean
+    public InMemoryOAuth2AuthorizedClientService inMemoryOAuth2AuthorizedClientService(ClientRegistrationRepository clientRegistrationRepository) {
+        return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository);
+    }
+
+    private ClientCredentialsOAuth2AuthorizedClientProvider getProvider() {
         SimpleClientHttpRequestFactory simpleClientHttpRequestFactory = new SimpleClientHttpRequestFactory();
         simpleClientHttpRequestFactory.setConnectTimeout(oAuthClientProps.getTimeout());
         simpleClientHttpRequestFactory.setReadTimeout(oAuthClientProps.getTimeout());
@@ -85,10 +94,36 @@ public class OAuthClientConfig {
         ClientCredentialsOAuth2AuthorizedClientProvider credentialsOAuth2AuthorizedClientProvider = new ClientCredentialsOAuth2AuthorizedClientProvider();
         credentialsOAuth2AuthorizedClientProvider.setAccessTokenResponseClient(defaultClientCredentialsTokenResponseClient);
 
-        OAuth2AuthorizedClientProvider authorizedClientProvider = OAuth2AuthorizedClientProviderBuilder.builder().provider(credentialsOAuth2AuthorizedClientProvider).clientCredentials().build();
+        return credentialsOAuth2AuthorizedClientProvider;
+    }
+
+    private AuthorizedClientServiceOAuth2AuthorizedClientManager getAuthorizedClientManager(
+            ClientRegistrationRepository clientRegistrationRepository,
+            OAuth2AuthorizedClientService authorizedClientService
+    ) {
+        OAuth2AuthorizedClientProvider authorizedClientProvider = OAuth2AuthorizedClientProviderBuilder
+                .builder()
+                .provider(getProvider())
+                .clientCredentials()
+                .refreshToken()
+                .password()
+                .build();
+
         AuthorizedClientServiceOAuth2AuthorizedClientManager authorizedClientManager = new AuthorizedClientServiceOAuth2AuthorizedClientManager(clientRegistrationRepository, authorizedClientService);
         authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
 
         return authorizedClientManager;
+    }
+
+    private ClientRegistration getClientRegistration(AuthorizationGrantType grantType) {
+        return ClientRegistration
+                .withRegistrationId(oAuthClientProps.getClientName())
+                .clientId(credentials.get(oAuthClientProps.getClientIdKey()).toString())
+                .clientSecret(credentials.get(oAuthClientProps.getClientSecretKey()).toString())
+                .authorizationGrantType(grantType)
+                .redirectUri(oAuthClientProps.getRedirectUri())
+                .scope(oAuthClientProps.getScopes())
+                .tokenUri(oAuthClientProps.getTokenUri())
+                .build();
     }
 }
